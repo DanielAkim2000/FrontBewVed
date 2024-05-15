@@ -1,13 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: lightgray;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-optical-sizing: auto;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.active {
+  border-bottom: 2px solid;
+  padding-bottom: 7px;
+}
+
+.bond {
+  transition: transform 0.3s ease;
+}
+
+.bond:hover {
+  transform: translateY(-5px);
+  color: blue;
+}
+
+.bg-header {
+  background-color: #e3e3e3;
+  opacity: 80%;
+}
+
+/* Style du tableau */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Style des cellules d'en-tête */
+.table th {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 8px;
+}
+
+/* Style des lignes de données */
+.table td {
+  border: 1px solid #dee2e6;
+  padding: 8px;
+}
+
+/* Style des lignes impaires */
+.table tbody tr:nth-child(odd) {
+  background-color: #f8f9fa;
+}
+
+/* Style des lignes au survol */
+.table tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+/* Style des boutons dans les cellules d'action */
+.table .action-buttons button {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+/* Espacement entre les compétences */
+.table .competences span {
+  margin-right: 5px;
+}
+
+/* Alignement des compétences au centre */
+.table .competences {
+  display: flex;
+  justify-content: center;
+}
+
+/* Espacement entre les actions */
+.table .actions {
+  display: flex;
+  justify-content: center;
 }
