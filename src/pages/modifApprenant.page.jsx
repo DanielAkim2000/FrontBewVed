@@ -41,7 +41,7 @@ function ModifApprenant() {
       });
 
     api
-      .get("/promotion")
+      .get("/promotion/")
       .then((response) => {
         setPromotions(response.data);
         console.log(response.data);
@@ -51,7 +51,7 @@ function ModifApprenant() {
       });
 
     api
-      .get("/competence")
+      .get("/competence/")
       .then((response) => {
         setCompetences(response.data);
         console.log(response.data);
@@ -70,7 +70,7 @@ function ModifApprenant() {
     if (choice) {
       console.log("apprenant:", apprenant);
       api
-        .put(`/apprenant/${id}/edit`, apprenant)
+        .put(`/apprenant/${id}/edit/`, apprenant)
         .then((response) => {
           console.log(response.data);
           alert("Apprenant modifié avec succès");

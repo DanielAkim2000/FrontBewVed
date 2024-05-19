@@ -38,7 +38,7 @@ function ModifFormateur() {
     let choice = window.confirm("Voulez-vous vraiment modifier ce formateur ?");
     if (choice) {
       api
-        .put(`/formateur/${id}/edit`, formateur)
+        .put(`/formateur/${id}/edit/`, formateur)
         .then((response) => {
           console.log(response.data);
           alert("Formateur modifié");

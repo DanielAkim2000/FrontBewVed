@@ -38,7 +38,7 @@ function ModifPromotion() {
     );
     if (choice) {
       api
-        .put(`/promotion/${id}/edit`, promotion)
+        .put(`/promotion/${id}/edit/`, promotion)
         .then((response) => {
           console.log(response.data);
           alert("Promotion modifiée");

@@ -30,7 +30,7 @@ function ModifFormation() {
     );
     if (choice) {
       api
-        .put(`/formation/${id}/edit`, formation)
+        .put(`/formation/${id}/edit/`, formation)
         .then((response) => {
           console.log(response.data);
           alert("Formation modifiée");
@@ -41,7 +41,7 @@ function ModifFormation() {
 
   useEffect(() => {
     api
-      .get("/formateur")
+      .get("/formateur/")
       .then((response) => {
         setFormateur(response.data);
         console.log(response.data);

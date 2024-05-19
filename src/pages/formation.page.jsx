@@ -22,7 +22,7 @@ function FormationPage() {
   return (
     <div className="rounded p-5 bg-body-secondary  mx-5">
       <h1 className="text-center mb-5">Liste des formations</h1>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex flex-wrap justify-content-center w-100">
         <Button
           variant="outline-primary"
           onClick={handleAddFormation}

@@ -214,7 +214,7 @@ function AddApprenantInFormation() {
             </select>
           </div>
         </div>
-        <Table className="table text-center" hover>
+        <Table className="table text-center" hover responsive>
           <thead>
             <tr>
               <th>#</th>
