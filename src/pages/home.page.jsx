@@ -10,7 +10,7 @@ function Home() {
     document.title = "Accueil";
 
     axios
-      .get("https://bewved-4efa698bf3e0.herokuapp.com/formation", {
+      .get("https://bewved-4efa698bf3e0.herokuapp.com/formation/", {
         headers: {
           "Access-Control-Allow-Origin": "*",
         },
