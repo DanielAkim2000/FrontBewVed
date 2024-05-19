@@ -85,7 +85,7 @@ function MyTable() {
                 </ul>
               </Card.Text>
               <Card.Footer>
-                <div className="d-flex gap-2 mx-2 justify-content-center">
+                <div className="d-flex flex-wrap gap-2 mx-2 justify-content-center">
                   <Button
                     size="sm"
                     onClick={() => {

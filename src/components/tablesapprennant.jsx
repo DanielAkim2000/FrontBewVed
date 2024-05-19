@@ -90,7 +90,7 @@ function MyTable() {
                 </Card.Text>
               </Card.Body>
               <Card.Footer className="w-100">
-                <div className="d-flex flex-wrap gap-2 justify-content-center w-100">
+                <div className="d-flex gap-2 justify-content-center w-100">
                   <Button
                     size="sm"
                     onClick={() => {
