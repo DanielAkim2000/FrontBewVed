@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api/axios.api";
 
 function Home() {
   const [formations, setFormations] = useState([]);
@@ -9,12 +9,8 @@ function Home() {
   useEffect(() => {
     document.title = "Accueil";
 
-    axios
-      .get("https://bewved-4efa698bf3e0.herokuapp.com/formation/", {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
+    api
+      .get("/formation/")
       .then((response) => {
         setFormations(response.data);
         console.log(response.data);

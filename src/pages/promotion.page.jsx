@@ -13,7 +13,7 @@ function PromotionPage() {
   useEffect(() => {
     document.title = "Promotions";
     api
-      .get("/promotion")
+      .get("/promotion/")
       .then((response) => {
         setPromotions(response.data);
         console.log(response.data);

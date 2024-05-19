@@ -36,7 +36,7 @@ function MyTable() {
     document.title = "Formation";
 
     api
-      .get("/formation")
+      .get("/formation/")
       .then((response) => {
         setFormations(response.data);
         console.log(response.data);

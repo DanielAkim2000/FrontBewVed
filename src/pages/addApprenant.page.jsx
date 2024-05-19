@@ -25,7 +25,7 @@ function AddApprenant() {
     document.title = "Ajout d'un apprenant";
 
     api
-      .get("/promotion")
+      .get("/promotion/")
       .then((response) => {
         setPromotion(response.data);
         console.log(response.data);
@@ -35,7 +35,7 @@ function AddApprenant() {
       });
 
     api
-      .get("competence")
+      .get("competence/")
       .then((response) => {
         setCompetences(response.data);
         console.log(response.data);
@@ -50,7 +50,7 @@ function AddApprenant() {
     e.preventDefault();
     console.log(apprenant);
     api
-      .post("/apprenant/new", apprenant)
+      .post("/apprenant/new/", apprenant)
       .then((response) => {
         console.log(response.data);
         alert("Apprenant ajouté");

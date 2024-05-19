@@ -19,7 +19,7 @@ function MyTable() {
   useEffect(() => {
     document.title = "Groupes";
     api
-      .get("/groupe")
+      .get("/groupe/")
       .then((response) => {
         setGroupes(response.data);
         console.log(response.data);
@@ -29,7 +29,7 @@ function MyTable() {
       });
 
     api
-      .get("/formation")
+      .get("/formation/")
       .then((response) => {
         setFormations(response.data);
         console.log(response.data);

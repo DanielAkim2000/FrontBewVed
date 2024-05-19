@@ -20,7 +20,7 @@ function AddFormation() {
     e.preventDefault();
     console.log(formation);
     api
-      .post("/formation/new", formation)
+      .post("/formation/new/", formation)
       .then((response) => {
         console.log(response.data);
         alert("Formation ajoutée");
@@ -29,7 +29,7 @@ function AddFormation() {
   };
 
   useEffect(() => {
-    api.get("/formateur").then((response) => {
+    api.get("/formateur/").then((response) => {
       setFormateur(response.data);
       console.log(response.data);
       setLoading(false);

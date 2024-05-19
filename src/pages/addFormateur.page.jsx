@@ -19,7 +19,7 @@ function AddFormateur() {
     );
     if (choice) {
       api
-        .post(`/formateur/new`, formateur)
+        .post(`/formateur/new/`, formateur)
         .then((response) => {
           console.log(response.data);
           alert("Formateur ajouté");

@@ -35,7 +35,7 @@ function MyTable() {
     document.title = "Formation";
 
     api
-      .get("/apprenant")
+      .get("/apprenant/")
       .then((response) => {
         setApprenants(response.data);
         console.log(response.data);

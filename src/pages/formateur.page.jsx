@@ -29,7 +29,7 @@ function FormateurPage() {
     document.title = "Formateurs";
 
     api
-      .get("/formateur")
+      .get("/formateur/")
       .then((response) => {
         setFormateurs(response.data);
         console.log(response.data);

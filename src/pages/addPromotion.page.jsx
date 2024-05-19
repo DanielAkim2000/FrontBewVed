@@ -15,7 +15,7 @@ function AddPromotion() {
         onSubmit={(e) => {
           e.preventDefault();
           api
-            .post("/promotion/new", promotion)
+            .post("/promotion/new/", promotion)
             .then((response) => {
               console.log(response.data);
               alert("Promotion ajoutée");

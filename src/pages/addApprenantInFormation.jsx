@@ -59,7 +59,7 @@ function AddApprenantInFormation() {
   useEffect(() => {
     document.title = "Ajout d'un apprenant dans une formation";
     api
-      .get("/formation")
+      .get("/formation/")
       .then((response) => {
         setFormations(response.data);
         console.log(response.data);
@@ -69,7 +69,7 @@ function AddApprenantInFormation() {
       });
 
     api
-      .get("/competence")
+      .get("/competence/")
       .then((response) => {
         setCompetences(response.data);
         console.log(response.data);
@@ -79,7 +79,7 @@ function AddApprenantInFormation() {
       });
 
     api
-      .get("/apprenant")
+      .get("/apprenant/")
       .then((response) => {
         setApprenants(response.data);
         console.log(response.data);
@@ -248,7 +248,7 @@ function AddApprenantInFormation() {
                       onClick={() => {
                         api
                           .post(
-                            `/apprenant/${apprenant.id}/ajoutFormation`,
+                            `/apprenant/${apprenant.id}/ajoutFormation/`,
                             { formation: parseInt(currentFormation) }
                           )
                           .then((response) => {
@@ -274,7 +274,7 @@ function AddApprenantInFormation() {
                       onClick={() => {
                         api
                           .post(
-                            `/apprenant/${apprenant.id}/removeFormation`,
+                            `/apprenant/${apprenant.id}/removeFormation/`,
                             { formation: currentFormation }
                           )
                           .then((response) => {

@@ -19,7 +19,7 @@ function AddGroupe() {
   useEffect(() => {
     document.title = "Création de groupes";
 
-    api.get("/formation").then((response) => {
+    api.get("/formation/").then((response) => {
       setFormation(response.data);
       console.log(response.data);
       setLoading(false);
@@ -31,7 +31,7 @@ function AddGroupe() {
     console.log(groupe);
     api
       .post(
-        `/formation/${groupe.formation}/addgroup`,
+        `/formation/${groupe.formation}/addgroup/`,
         groupe
       )
       .then((response) => {
