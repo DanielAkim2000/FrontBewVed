@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api/axios.api";
 import axios from "axios";
 
 function Home() {
@@ -11,7 +10,11 @@ function Home() {
     document.title = "Accueil";
 
     axios
-      .get("https://bewved-4efa698bf3e0.herokuapp.com/formation")
+      .get("https://bewved-4efa698bf3e0.herokuapp.com/formation", {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
       .then((response) => {
         setFormations(response.data);
         console.log(response.data);
@@ -29,10 +32,13 @@ function Home() {
         application web intuitive et efficace pour la constitution de
         mini-groupes !"{" "}
       </h5>
-      <h6 className="text-center mb-5 mx-5"> Simplifiez vos processus pédagogiques et favorisez des
-        interactions enrichissantes entre les apprenants, tout en promouvant la
-        diversité et les échanges intergénérationnels. Rejoignez-nous pour une
-        expérience d'apprentissage optimale et dynamique !</h6>
+      <h6 className="text-center mb-5 mx-5">
+        {" "}
+        Simplifiez vos processus pédagogiques et favorisez des interactions
+        enrichissantes entre les apprenants, tout en promouvant la diversité et
+        les échanges intergénérationnels. Rejoignez-nous pour une expérience
+        d'apprentissage optimale et dynamique !
+      </h6>
       <h2 className="text-center mb-5">Liste des formations</h2>
       <div className="d-flex flex-wrap gap-5 justify-content-center">
         {formations?.map((formation) => (
