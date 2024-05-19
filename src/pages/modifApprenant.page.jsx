@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/loading";
+import api from "../api/axios.api";
 
 function ModifApprenant() {
   const navigate = useNavigate();
@@ -23,8 +23,8 @@ function ModifApprenant() {
   let { id } = useParams();
   useEffect(() => {
     document.title = "Modification d'un apprenant";
-    axios
-      .get(`http://localhost:8000/apprenant/${id}`)
+    api
+      .get(`/apprenant/${id}`)
       .then((response) => {
         console.log(response.data[0]);
         setApprenant({
@@ -40,8 +40,8 @@ function ModifApprenant() {
         console.error("Error fetching data: ", error);
       });
 
-    axios
-      .get("http://localhost:8000/promotion")
+    api
+      .get("/promotion")
       .then((response) => {
         setPromotions(response.data);
         console.log(response.data);
@@ -50,8 +50,8 @@ function ModifApprenant() {
         console.error("Error fetching data: ", error);
       });
 
-    axios
-      .get("http://localhost:8000/competence")
+    api
+      .get("/competence")
       .then((response) => {
         setCompetences(response.data);
         console.log(response.data);
@@ -69,8 +69,8 @@ function ModifApprenant() {
     );
     if (choice) {
       console.log("apprenant:", apprenant);
-      axios
-        .put(`http://localhost:8000/apprenant/${id}/edit`, apprenant)
+      api
+        .put(`/apprenant/${id}/edit`, apprenant)
         .then((response) => {
           console.log(response.data);
           alert("Apprenant modifié avec succès");

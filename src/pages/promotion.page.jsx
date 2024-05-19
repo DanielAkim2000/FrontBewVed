@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Loading from "../components/loading";
 import { Button, Pagination, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axios.api";
 
 function PromotionPage() {
   const [promotions, setPromotions] = useState([]);
@@ -12,8 +12,8 @@ function PromotionPage() {
 
   useEffect(() => {
     document.title = "Promotions";
-    axios
-      .get("http://localhost:8000/promotion")
+    api
+      .get("/promotion")
       .then((response) => {
         setPromotions(response.data);
         console.log(response.data);
@@ -85,9 +85,9 @@ function PromotionPage() {
                         "Voulez-vous vraiment supprimer cette promotion?"
                       );
                       if (choice) {
-                        axios
+                        api
                           .delete(
-                            `http://localhost:8000/promotion/${promotion.id}`
+                            `/promotion/${promotion.id}`
                           )
                           .then((response) => {
                             console.log(response.data);

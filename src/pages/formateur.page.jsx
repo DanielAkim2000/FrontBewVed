@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Loading from "../components/loading";
 import { Button, Pagination, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axios.api";
 
 function FormateurPage() {
   const [formateurs, setFormateurs] = useState([]);
@@ -28,8 +28,8 @@ function FormateurPage() {
   useEffect(() => {
     document.title = "Formateurs";
 
-    axios
-      .get("http://localhost:8000/formateur")
+    api
+      .get("/formateur")
       .then((response) => {
         setFormateurs(response.data);
         console.log(response.data);
@@ -49,17 +49,19 @@ function FormateurPage() {
     <div className="rounded p-5 bg-body-secondary  mx-5">
       <h2 className="text-center w-100 mb-5">Liste des formateurs</h2>
       <div className="my-3">
-        <Button
-          variant="success"
-          onClick={() => {
-            navigate("/addFormateur");
-          }}
-        >
-          Ajouter un formateur
-        </Button>
+        <div className="d-flex w-100 justify-content-center mb-5">
+          <Button
+            variant="success"
+            onClick={() => {
+              navigate("/addFormateur");
+            }}
+          >
+            Ajouter un formateur
+          </Button>
+        </div>
       </div>
-      <div className="w-100">
-        <Table className="table text-center" hover>
+      <div className="w-75 m-auto">
+        <Table className="table text-center" hover responsive>
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -90,9 +92,9 @@ function FormateurPage() {
                           "Voulez-vous vraiment supprimer ce formateur ?"
                         );
                         if (choice) {
-                          axios
+                          api
                             .delete(
-                              `http://localhost:8000/formateur/${formateur.id}`
+                              `/formateur/${formateur.id}`
                             )
                             .then((response) => {
                               console.log(response.data);

@@ -1,9 +1,8 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, Pagination } from "react-bootstrap";
+import { Card, Pagination } from "react-bootstrap";
 
-import Table from "react-bootstrap/Table";
 import Loading from "./loading";
+import api from "../api/axios.api";
 
 function MyTable() {
   const [groupes, setGroupes] = useState([]);
@@ -19,8 +18,8 @@ function MyTable() {
 
   useEffect(() => {
     document.title = "Groupes";
-    axios
-      .get("http://localhost:8000/groupe")
+    api
+      .get("/groupe")
       .then((response) => {
         setGroupes(response.data);
         console.log(response.data);
@@ -29,8 +28,8 @@ function MyTable() {
         console.error("Error fetching data: ", error);
       });
 
-    axios
-      .get("http://localhost:8000/formation")
+    api
+      .get("/formation")
       .then((response) => {
         setFormations(response.data);
         console.log(response.data);
@@ -57,7 +56,7 @@ function MyTable() {
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const groupesPerPage = 3; //
+  const groupesPerPage = 6; //
 
   // Index du dernier apprenant de la page
   const indexOfLastGroup = currentPage * groupesPerPage;
@@ -87,34 +86,47 @@ function MyTable() {
           </option>
         ))}
       </select>
-      <div className="d-flex flex-row flex-wrap text-center gap-5 ">
+      <div className="d-flex w-100 justify-content-center flex-row flex-wrap gap-5 ">
         {currentGroupes.map((groupe) => (
-          <div className="w-auto mx-auto">
-            <h4 key={groupe.id}>{groupe.nom}</h4>
-            <Table className="text-center border" hover responsive>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Nom</th>
-                  <th>Prénom</th>
-                  <th>Sexe</th>
-                  <th>Age</th>
-                </tr>
-              </thead>
-              <tbody>
-                {groupe &&
-                  groupe.apprenants.map((apprenant, index) => (
-                    <tr key={apprenant.id}>
-                      <td>{index + 1}</td>
-                      <td>{apprenant.nom}</td>
-                      <td>{apprenant.prenom}</td>
-                      <td>{apprenant.sexe}</td>
-                      <td>{apprenant.age}</td>
-                    </tr>
+          <Card
+            key={groupe.id}
+            bg="light"
+            text="dark"
+            className="m-2 col-12 col-sm-12 col-md-8 col-lg-4 col-xl-3 bond"
+          >
+            <Card.Header as="h5" className="text-success text-center">
+              {groupe.nom}
+            </Card.Header>
+            <Card.Body>
+              <Card.Title>Informations:</Card.Title>
+              <Card.Text>
+                <ul className="text-primary">
+                  <li>
+                    <span className="text-dark">Formation: </span>{" "}
+                    {groupe.formation}
+                  </li>
+                  <li>
+                    <span className="text-dark">Nombre d'apprenants: </span>{" "}
+                    {groupe.apprenants.length}
+                  </li>
+                  <li>
+                    <span className="text-dark">Formateur: </span>{" "}
+                    {groupe.formateur}
+                  </li>
+                </ul>
+              </Card.Text>
+              <Card.Title>Apprenants:</Card.Title>
+              <Card.Text>
+                <ul>
+                  {groupe.apprenants.map((apprenant) => (
+                    <li>
+                      {apprenant.nom} {apprenant.prenom}
+                    </li>
                   ))}
-              </tbody>
-            </Table>
-          </div>
+                </ul>
+              </Card.Text>
+            </Card.Body>
+          </Card>
         ))}
       </div>
       <Pagination className="justify-content-center">

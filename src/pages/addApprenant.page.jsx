@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import axios from "axios";
 import Loading from "../components/loading";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axios.api";
 
 function AddApprenant() {
-  const [formation, setFormation] = useState([]);
   const [promotion, setPromotion] = useState([]);
   const [competences, setCompetences] = useState([]);
 
@@ -25,8 +24,8 @@ function AddApprenant() {
   useEffect(() => {
     document.title = "Ajout d'un apprenant";
 
-    axios
-      .get("http://localhost:8000/promotion")
+    api
+      .get("/promotion")
       .then((response) => {
         setPromotion(response.data);
         console.log(response.data);
@@ -35,8 +34,8 @@ function AddApprenant() {
         console.error("Error fetching data: ", error);
       });
 
-    axios
-      .get("http://localhost:8000/competence")
+    api
+      .get("competence")
       .then((response) => {
         setCompetences(response.data);
         console.log(response.data);
@@ -50,8 +49,8 @@ function AddApprenant() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(apprenant);
-    axios
-      .post("http://localhost:8000/apprenant/new", apprenant)
+    api
+      .post("/apprenant/new", apprenant)
       .then((response) => {
         console.log(response.data);
         alert("Apprenant ajouté");
@@ -59,6 +58,7 @@ function AddApprenant() {
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
+        alert("Erreur lors de l'ajout de l'apprenant ! Un champs surement manquant");
       });
   };
 
@@ -83,7 +83,7 @@ function AddApprenant() {
               setApprenant({ ...apprenant, promotion: e.target.value });
             }}
           >
-            <option value={null}>Sélectionnez la promotion</option>
+            <option value={""}>Sélectionnez la promotion</option>
             {promotion.map((promotion) => (
               <option value={promotion.id} key={promotion.id}>
                 {promotion.nom}
@@ -131,7 +131,7 @@ function AddApprenant() {
               setApprenant({ ...apprenant, sexe: e.target.value });
             }}
           >
-            <option value={null}>Sélectionnez le sexe</option>
+            <option value={""}>Sélectionnez le sexe</option>
             <option value="Homme">Homme</option>
             <option value="Femme">Femme</option>
           </select>

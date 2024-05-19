@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import Loading from "../components/loading";
+import api from "../api/axios.api";
 
 function ModifFormateur() {
   let { id } = useParams();
@@ -17,8 +17,8 @@ function ModifFormateur() {
   useEffect(() => {
     document.title = `Modification du formateur ${id}`;
 
-    axios
-      .get(`http://localhost:8000/formateur/${id}`)
+    api
+      .get(`/formateur/${id}`)
       .then((response) => {
         console.log(response.data);
         setFormateur({
@@ -30,15 +30,15 @@ function ModifFormateur() {
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
-  }, []);
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formateur);
     let choice = window.confirm("Voulez-vous vraiment modifier ce formateur ?");
     if (choice) {
-      axios
-        .put(`http://localhost:8000/formateur/${id}/edit`, formateur)
+      api
+        .put(`/formateur/${id}/edit`, formateur)
         .then((response) => {
           console.log(response.data);
           alert("Formateur modifié");

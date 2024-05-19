@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import api from "../api/axios.api";
 
 function DetailsFormation() {
   const [formation, setFormation] = useState({
@@ -20,8 +20,8 @@ function DetailsFormation() {
   useEffect(() => {
     document.title = `Details de la formation ${id}`;
 
-    axios
-      .get(`http://localhost:8000/formation/${id}`)
+    api
+      .get(`/formation/${id}`)
       .then((response) => {
         console.log(response.data[0]);
         setFormation({
@@ -76,13 +76,16 @@ function DetailsFormation() {
             )}
           </h6>
         </div>
-        <h4 className="my-4">Groupes:</h4>
+        {/* Groupes et apprenants de la formation si il n y a pas de groupe on affiche pas le h4 */}
+        {formation.groupes.length > 0 && ( 
+          <h4 className="my-4">Groupes:</h4>
+        )}
         {formation.groupes?.map((groupe) => (
           <div>
             <h5 className="my-2">{groupe.nom}</h5>
             <div>
               <h6 className="my-2">Apprenants:</h6>
-              <Table className="table">
+              <Table className="table" hover responsive>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -114,7 +117,7 @@ function DetailsFormation() {
           </div>
         ))}
       </div>
-      <div className="w-100">
+      <div className="w-100 mt-4">
         <h4>Formateur:</h4>
         <div>
           <h6 className="text-warning"><span className="text-decoration-underline text-dark">Nom:</span> {formation.formateur.nom}</h6>
@@ -124,7 +127,7 @@ function DetailsFormation() {
           Toutes les formations dirigé par{" "}
           {formation.formateur.prenom + " " + formation.formateur.nom}
         </h4>
-        <Table className="table">
+        <Table className="table" hover responsive>
           <thead>
             <tr>
               <th>#</th>

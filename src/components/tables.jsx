@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import axios from "axios";
+import { Button, Card } from "react-bootstrap";
 
-import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 import Loading from "./loading";
 
 import Pagination from "react-bootstrap/Pagination";
+import api from "../api/axios.api";
 
 function MyTable() {
   const [formations, setFormations] = useState([]);
@@ -18,7 +17,7 @@ function MyTable() {
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const formationsPerPage = 5; //
+  const formationsPerPage = 6; //
 
   // Index du dernier apprenant de la page
   const indexOfLastFormation = currentPage * formationsPerPage;
@@ -36,8 +35,8 @@ function MyTable() {
   useEffect(() => {
     document.title = "Formation";
 
-    axios
-      .get("http://localhost:8000/formation")
+    api
+      .get("/formation")
       .then((response) => {
         setFormations(response.data);
         console.log(response.data);
@@ -54,30 +53,41 @@ function MyTable() {
 
   return (
     <>
-      <Table className="text-center border" hover responsive>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nom</th>
-            <th>Formateur</th>
-            <th>Duree</th>
-            <th>NbApprenant</th>
-            <th>NbGroupes</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentFormation.map((formation, index) => (
-            <tr key={formation.id}>
-              <td>{index + 1}</td>
-              <td>{formation.nom}</td>
-              <td>{formation.formateur}</td>
-              <td>{formation.duree}</td>
-              <td>{formation.apprenants?.length}</td>
-              <td>{formation.groupes?.length}</td>
-              <td>
-                <div className="d-flex gap-2 justify-content-center">
+      <div className="d-flex flex-wrap justify-content-center">
+        {currentFormation.map((formation, index) => (
+          <Card
+            key={formation.id}
+            bg="light"
+            text="dark"
+            className="m-5 col-12 col-sm-12 col-md-8 col-lg-4 col-xl-3 bond"
+          >
+            <Card.Header as={"h5"} className="text-success text-center">{formation.nom}</Card.Header>
+            <Card.Body>
+              <Card.Title> Informations: </Card.Title>
+              <Card.Text>
+                <ul className="text-primary">
+                  <li>
+                    <span className=" text-dark">Formateur: </span>{" "}
+                    {formation.formateur}{" "}
+                  </li>
+                  <li>
+                    <span className=" text-dark">Duree: </span>{" "}
+                    {formation.duree} {formation.duree === 1 ? "jour" : "jours"}{" "}
+                  </li>
+                  <li>
+                    <span className=" text-dark">Nombre d'apprenants: </span>{" "}
+                    {formation.apprenants?.length}{" "}
+                  </li>
+                  <li>
+                    <span className=" text-dark">Nombre de groupes: </span>{" "}
+                    {formation.groupes?.length}{" "}
+                  </li>
+                </ul>
+              </Card.Text>
+              <Card.Footer>
+                <div className="d-flex gap-2 mx-2 justify-content-center">
                   <Button
+                    size="sm"
                     onClick={() => {
                       navigate(`/detailsFormation/${formation.id}`);
                     }}
@@ -86,6 +96,7 @@ function MyTable() {
                     Détails
                   </Button>
                   <Button
+                    size="sm"
                     onClick={() => {
                       navigate(`/modifFormation/${formation.id}`);
                     }}
@@ -95,14 +106,15 @@ function MyTable() {
                   </Button>
 
                   <Button
+                    size="sm"
                     onClick={() => {
                       let choice = window.confirm(
                         "Voulez-vous vraiment supprimer cette formation ?"
                       );
                       if (choice) {
-                        axios
+                        api
                           .delete(
-                            `http://localhost:8000/formation/${formation.id}`
+                            `/formation/${formation.id}`
                           )
                           .then((response) => {
                             console.log(response.data);
@@ -116,11 +128,11 @@ function MyTable() {
                     Supprimer
                   </Button>
                 </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+              </Card.Footer>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
       <Pagination className="justify-content-center">
         {Array.from(
           { length: Math.ceil(formations.length / formationsPerPage) },

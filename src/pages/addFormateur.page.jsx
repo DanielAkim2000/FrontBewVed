@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import api from '../api/axios.api';
 
 function AddFormateur() {
   const [formateur, setFormateur] = useState({
@@ -18,8 +18,8 @@ function AddFormateur() {
       "Voulez-vous vraiment ajouter ce formateur ?"
     );
     if (choice) {
-      axios
-        .post(`http://localhost:8000/formateur/new`, formateur)
+      api
+        .post(`/formateur/new`, formateur)
         .then((response) => {
           console.log(response.data);
           alert("Formateur ajouté");

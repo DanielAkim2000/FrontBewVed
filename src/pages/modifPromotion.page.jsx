@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import axios from "axios";
 import Loading from "../components/loading";
+import api from "../api/axios.api";
 
 function ModifPromotion() {
   let { id } = useParams();
@@ -16,8 +16,8 @@ function ModifPromotion() {
   useEffect(() => {
     document.title = `Modification de la promotion ${promotion.nom}`;
 
-    axios
-      .get(`http://localhost:8000/promotion/${id}`)
+    api
+      .get(`/promotion/${id}`)
       .then((response) => {
         console.log(response.data);
         setPromotion({
@@ -29,7 +29,7 @@ function ModifPromotion() {
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
-  }, [id]);
+  }, [id,promotion]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,8 +37,8 @@ function ModifPromotion() {
       "Voulez-vous vraiment modifier cette promotion ?"
     );
     if (choice) {
-      axios
-        .put(`http://localhost:8000/promotion/${id}/edit`, promotion)
+      api
+        .put(`/promotion/${id}/edit`, promotion)
         .then((response) => {
           console.log(response.data);
           alert("Promotion modifiée");

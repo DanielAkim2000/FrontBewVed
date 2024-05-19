@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../Logo.png";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Nav, Navbar } from "react-bootstrap";
+import { NavLink, useNavigate } from "react-router-dom";
 
 
 function CollapsibleExample() {

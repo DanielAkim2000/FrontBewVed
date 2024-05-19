@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/loading";
+import api from "../api/axios.api";
 
 function AddFormation() {
   const [formateur, setFormateur] = useState([]);
@@ -19,8 +19,8 @@ function AddFormation() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formation);
-    axios
-      .post("http://localhost:8000/formation/new", formation)
+    api
+      .post("/formation/new", formation)
       .then((response) => {
         console.log(response.data);
         alert("Formation ajoutée");
@@ -29,7 +29,7 @@ function AddFormation() {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:8000/formateur").then((response) => {
+    api.get("/formateur").then((response) => {
       setFormateur(response.data);
       console.log(response.data);
       setLoading(false);
@@ -58,7 +58,7 @@ function AddFormation() {
               setFormation({ ...formation, formateur: e.target.value });
             }}
           >
-            <option>Choisir un formateur</option>
+            <option value={""}>Choisir un formateur</option>
             {formateur.map((formateur) => (
               <option value={formateur.id} key={formateur.id}>
                 {formateur.nom + " " + formateur.prenom}

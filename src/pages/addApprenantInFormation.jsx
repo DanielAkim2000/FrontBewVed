@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, Pagination, Tab, Table } from "react-bootstrap";
+import { Button, Pagination, Table } from "react-bootstrap";
 import Loading from "../components/loading";
+import api from "../api/axios.api";
 
 function AddApprenantInFormation() {
   const [formations, setFormations] = useState([]);
@@ -58,9 +58,8 @@ function AddApprenantInFormation() {
 
   useEffect(() => {
     document.title = "Ajout d'un apprenant dans une formation";
-
-    axios
-      .get("http://localhost:8000/formation")
+    api
+      .get("/formation")
       .then((response) => {
         setFormations(response.data);
         console.log(response.data);
@@ -69,8 +68,8 @@ function AddApprenantInFormation() {
         console.error("Error fetching data: ", error);
       });
 
-    axios
-      .get("http://localhost:8000/competence")
+    api
+      .get("/competence")
       .then((response) => {
         setCompetences(response.data);
         console.log(response.data);
@@ -79,8 +78,8 @@ function AddApprenantInFormation() {
         console.error("Error fetching data: ", error);
       });
 
-    axios
-      .get("http://localhost:8000/apprenant")
+    api
+      .get("/apprenant")
       .then((response) => {
         setApprenants(response.data);
         console.log(response.data);
@@ -175,6 +174,9 @@ function AddApprenantInFormation() {
               <div className="w-100  gap-2 d-flex flex-wrap"> 
               <input
                 required
+                max={70}
+                min={13}
+                placeholder="0"
                 type="number"
                 value={selectedAge}
                 className="form-control w-auto"
@@ -244,9 +246,9 @@ function AddApprenantInFormation() {
                       }
                       className="btn btn-primary mx-2"
                       onClick={() => {
-                        axios
+                        api
                           .post(
-                            `http://localhost:8000/apprenant/${apprenant.id}/ajoutFormation`,
+                            `/apprenant/${apprenant.id}/ajoutFormation`,
                             { formation: parseInt(currentFormation) }
                           )
                           .then((response) => {
@@ -270,9 +272,9 @@ function AddApprenantInFormation() {
                       }
                       className="btn btn-danger mx-2"
                       onClick={() => {
-                        axios
+                        api
                           .post(
-                            `http://localhost:8000/apprenant/${apprenant.id}/removeFormation`,
+                            `/apprenant/${apprenant.id}/removeFormation`,
                             { formation: currentFormation }
                           )
                           .then((response) => {

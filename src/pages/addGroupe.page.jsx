@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/loading";
+import api from "../api/axios.api";
 
 function AddGroupe() {
   const [formation, setFormation] = useState([]);
@@ -19,7 +19,7 @@ function AddGroupe() {
   useEffect(() => {
     document.title = "Création de groupes";
 
-    axios.get("http://localhost:8000/formation").then((response) => {
+    api.get("/formation").then((response) => {
       setFormation(response.data);
       console.log(response.data);
       setLoading(false);
@@ -29,9 +29,9 @@ function AddGroupe() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(groupe);
-    axios
+    api
       .post(
-        `http://localhost:8000/formation/${groupe.formation}/addgroup`,
+        `/formation/${groupe.formation}/addgroup`,
         groupe
       )
       .then((response) => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import api from "../api/axios.api";
 
 function Home() {
   const [formations, setFormations] = useState([]);
@@ -9,8 +9,8 @@ function Home() {
   useEffect(() => {
     document.title = "Accueil";
 
-    axios
-      .get("http://localhost:8000/formation")
+    api
+      .get("/formation")
       .then((response) => {
         setFormations(response.data);
         console.log(response.data);

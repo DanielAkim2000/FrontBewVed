@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/loading";
+import api from "../api/axios.api";
 
 function ModifFormation() {
   const [formateur, setFormateur] = useState([]);
@@ -29,8 +29,8 @@ function ModifFormation() {
       "Voulez-vous vraiment modifier cette formation ?"
     );
     if (choice) {
-      axios
-        .put(`http://localhost:8000/formation/${id}/edit`, formation)
+      api
+        .put(`/formation/${id}/edit`, formation)
         .then((response) => {
           console.log(response.data);
           alert("Formation modifiée");
@@ -40,8 +40,8 @@ function ModifFormation() {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/formateur")
+    api
+      .get("/formateur")
       .then((response) => {
         setFormateur(response.data);
         console.log(response.data);
@@ -50,8 +50,8 @@ function ModifFormation() {
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
-    axios
-      .get(`http://localhost:8000/formation/${id}`)
+    api
+      .get(`/formation/${id}`)
       .then((response) => {
         console.log(response.data[0]);
         setFormation({
@@ -68,7 +68,7 @@ function ModifFormation() {
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
-  }, []);
+  }, [id,formation]);
 
   if (loading) {
     return <Loading />;
@@ -96,10 +96,10 @@ function ModifFormation() {
                 formateur: {
                   id: parseInt(e.target.value),
                   nom: formateur.find(
-                    (formateur) => formateur.id == e.target.value
+                    (formateur) => formateur.id === parseInt(e.target.value)
                   ).nom,
                   prenom: formateur.find(
-                    (formateur) => formateur.id == e.target.value
+                    (formateur) => formateur.id === parseInt(e.target.value)
                   ).prenom,
                 },
               });

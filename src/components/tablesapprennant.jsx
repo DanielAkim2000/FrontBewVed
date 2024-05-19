@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import axios from "axios";
+import { Button, Card } from "react-bootstrap";
 
-import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 import Loading from "./loading";
 
 import Pagination from "react-bootstrap/Pagination";
+import api from "../api/axios.api";
 
 function MyTable() {
   const [apprenants, setApprenants] = React.useState([]);
   const [reload, setReload] = React.useState(false);
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const apprenantsPerPage = 5; //
+  const apprenantsPerPage = 6; //
 
   // Index du dernier apprenant de la page
   const indexOfLastApprenant = currentPage * apprenantsPerPage;
@@ -35,8 +34,8 @@ function MyTable() {
   useEffect(() => {
     document.title = "Formation";
 
-    axios
-      .get("http://localhost:8000/apprenant")
+    api
+      .get("/apprenant")
       .then((response) => {
         setApprenants(response.data);
         console.log(response.data);
@@ -52,38 +51,48 @@ function MyTable() {
   }
   return (
     <>
-      <Table className="text-center border" hover responsive>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Sexe</th>
-            <th>Age</th>
-            <th>Promotion</th>
-            <th>Competences</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentApprenants.map((apprenant, index) => (
-            <tr key={apprenant.id}>
-              <td>{ index +1 }</td>
-              <td>{apprenant.nom}</td>
-              <td>{apprenant.prenom}</td>
-              <td>{apprenant.sexe}</td>
-              <td>{apprenant.age}</td>
-              <td>{apprenant.promotion}</td>
-              <td>
-                <div className="gap-2 d-flex justify-content-center">
-                  {apprenant.competences.map((competence) => (
-                    <span key={competence.id}>{competence.nom}</span>
-                  ))}
-                </div>
-              </td>
-              <td>
+      <div className="d-flex flex-wrap justify-content-center">
+        {currentApprenants.map((apprenant, index) => {
+          return (
+            <Card
+              key={apprenant.id}
+              bg="light"
+              text="dark"
+              className="m-5 col-12 col-sm-12 col-md-8 col-lg-4 col-xl-3 bond"
+            >
+              <Card.Header as="h5" className="text-success text-center">
+                {apprenant.nom} {apprenant.prenom}
+              </Card.Header>
+              <Card.Body>
+                <Card.Title>Informations:</Card.Title>
+                <Card.Text>
+                  <ul className="text-primary">
+                    <li>
+                      <span className="text-dark">Sexe: </span> {apprenant.sexe}
+                    </li>
+                    <li>
+                      <span className="text-dark">Age: </span> {apprenant.age}
+                    </li>
+                    <li>
+                      <span className="text-dark">Promotion: </span>{" "}
+                      {apprenant.promotion}
+                    </li>
+                  </ul>
+                </Card.Text>
+                <Card.Title>Compétences:</Card.Title>
+                <Card.Text>
+                      <ul>
+                        {apprenant.competences.map((competence) => (
+                          <li className="" key={competence.id}>{competence.nom}</li>
+                        ))}
+                      </ul>
+
+                </Card.Text>
+              </Card.Body>
+              <Card.Footer>
                 <div className="d-flex gap-2 justify-content-center">
                   <Button
+                    size="sm"
                     onClick={() => {
                       navigate(`/modifApprenant/${apprenant.id}`);
                     }}
@@ -92,14 +101,15 @@ function MyTable() {
                     Modifier
                   </Button>
                   <Button
+                    size="sm"
                     onClick={() => {
                       let choice = window.confirm(
                         "Etes-vous sûr de vouloir supprimer ?"
                       );
                       if (choice) {
-                        axios
+                        api
                           .delete(
-                            `http://localhost:8000/apprenant/${apprenant.id}`
+                            `/apprenant/${apprenant.id}`
                           )
                           .then((response) => {
                             console.log(response);
@@ -115,16 +125,16 @@ function MyTable() {
                     Supprimer
                   </Button>
                 </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+              </Card.Footer>
+            </Card>
+          );
+        })}
+      </div>
       <Pagination className="justify-content-center">
         {Array.from(
           { length: Math.ceil(apprenants.length / apprenantsPerPage) },
           (_, i) => (
-            <Pagination.Item 
+            <Pagination.Item
               key={i + 1}
               onClick={() => paginate(i + 1)}
               active={i + 1 === currentPage}

@@ -8,13 +8,19 @@ function ApprenantPage() {
 
   const handleClick = () => {
     navigate("/addApprenant");
-  }
+  };
   return (
-    <div className="rounded p-5 bg-body-secondary  mx-5">
-      <h1 className="text-center mb-5">Listes des apprenants</h1>
-      <Button variant="success" onClick={handleClick} className="my-3 mx-2">
-        Ajouter un apprenant
-      </Button>
+    <div className="rounded p-5 bg-body-secondary justify-content-center d-flex flex-column  mx-5">
+      <h1 className="text-center  mb-5">Listes des apprenants</h1>
+      <div className="d-flex w-100 justify-content-center">
+        <Button
+          variant="success"
+          onClick={handleClick}
+          className="my-3 mx-auto"
+        >
+          Ajouter un apprenant
+        </Button>
+      </div>
       <TableApprenant />
     </div>
   );
