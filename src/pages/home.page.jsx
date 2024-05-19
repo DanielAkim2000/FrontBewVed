@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios.api";
+import axios from "axios";
 
 function Home() {
   const [formations, setFormations] = useState([]);
@@ -9,8 +10,8 @@ function Home() {
   useEffect(() => {
     document.title = "Accueil";
 
-    api
-      .get("/formation")
+    axios
+      .get("https://bewved-4efa698bf3e0.herokuapp.com/formation")
       .then((response) => {
         setFormations(response.data);
         console.log(response.data);
