@@ -248,7 +248,7 @@ function AddApprenantInFormation() {
                       onClick={() => {
                         api
                           .post(
-                            `/apprenant/${apprenant.id}/ajoutFormation`,
+                            `/apprenant/${apprenant.id}/ajoutFormation/`,
                             { formation: parseInt(currentFormation) }
                           )
                           .then((response) => {
@@ -274,7 +274,7 @@ function AddApprenantInFormation() {
                       onClick={() => {
                         api
                           .post(
-                            `/apprenant/${apprenant.id}/removeFormation`,
+                            `/apprenant/${apprenant.id}/removeFormation/`,
                             { formation: currentFormation }
                           )
                           .then((response) => {
