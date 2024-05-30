@@ -63,12 +63,11 @@ function ModifFormation() {
           name: response.data[0].nom,
           duree: response.data[0].duree,
         });
-        console.log(formation);
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
-  }, [id,formation]);
+  }, [id]);
 
   if (loading) {
     return <Loading />;
