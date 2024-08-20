@@ -25,7 +25,7 @@ function AddApprenant() {
     document.title = "Ajout d'un apprenant";
 
     api
-      .get("/promotion/")
+      .get("promotion/")
       .then((response) => {
         setPromotion(response.data);
         console.log(response.data);
